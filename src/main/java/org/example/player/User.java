@@ -28,7 +28,7 @@ public class User implements Player {
         int x, y, cnt = 0;
         Printer.playerMove(this);
         do {
-            if (cnt++ > 1) {
+            if (cnt++ >= 1) {
                 Printer.print(Errors.OUT_OF_BOARD);
             }
             x = UserInput.ask() - 1;

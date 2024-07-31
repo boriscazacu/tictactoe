@@ -50,7 +50,7 @@ public class Printer {
     public static void print(Errors errors) {
         switch (errors) {
             case USER_ELEMENT_INCORRECT -> System.out.println("Incorrect user element. Please write X or Y !");
-            case OUT_OF_BOARD -> System.out.println("You are out of board. Please write value lower than board side !");
+            case OUT_OF_BOARD -> System.out.println("You are out of board. Please write value lower than board size !");
             default -> System.out.println("Internal error. Please try again.");
         }
     }
