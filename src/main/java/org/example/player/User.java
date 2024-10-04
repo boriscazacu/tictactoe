@@ -7,37 +7,40 @@ import org.example.helpers.UserInput;
 import org.example.interfaces.Element;
 import org.example.interfaces.Player;
 
+import java.util.function.Function;
+
 public class User implements Player {
 
     private final Board board;
     private final Element element;
+    private Runnable runnable;
+    private int score = 0;
+
+    public void addRunnable(Runnable runnable) {
+        this.runnable = runnable;
+    }
 
     public User(Board board, Element element) {
         this.board = board;
         this.element = element;
     }
 
-
     @Override
-    public Element element() {
-        return this.element;
-    }
-
-    @Override
-    public void move() {
-        int x, y, cnt = 0;
-        Printer.playerMove(this);
-        do {
-            if (cnt++ >= 1) {
-                Printer.print(Errors.OUT_OF_BOARD);
-            }
-            x = UserInput.ask() - 1;
-            y = UserInput.ask() - 1;
-        } while (board.move(x, y, element));
+    public String move(int x, int y) {
+        board.move(x, y, element);
+        if (this.runnable != null) {
+            this.runnable.run();
+        }
+        return element.value();
     }
 
     @Override
     public boolean winGame() {
         return board.playerWinGame(element);
+    }
+
+    @Override
+    public int incrementScore() {
+        return ++score;
     }
 }

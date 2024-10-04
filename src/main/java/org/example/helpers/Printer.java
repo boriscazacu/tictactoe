@@ -1,16 +1,16 @@
 package org.example.helpers;
 
-import lombok.experimental.UtilityClass;
 import org.example.board.Board;
 import org.example.enums.Errors;
 import org.example.interfaces.Player;
 import org.example.player.User;
 
-@UtilityClass
 public class Printer {
 
-    public static void welcomeMessage() {
-        System.out.println("Welcome to the Tic Tac Toe game!");
+    private Printer() {}
+
+    public static String welcomeMessage() {
+        return "Welcome to the Tic Tac Toe game!";
     }
 
     public static void print(Board board) {

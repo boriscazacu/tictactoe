@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="342.0" prefWidth="395.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MainController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+
+  <Label fx:id="welcomeText" text="Welcome to the Tic Tac Toe game!">
+      <font>
+         <Font size="20.0" />
+      </font>
+  </Label>
+  <Button onAction="#onStartButtonClick" text="Start" />
+  <Button onAction="#onGameStartButtonClick" text="Start Game" />
+</VBox>

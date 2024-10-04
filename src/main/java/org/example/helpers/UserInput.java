@@ -1,12 +1,12 @@
 package org.example.helpers;
 
-import lombok.experimental.UtilityClass;
 
 import java.util.Scanner;
 
-@UtilityClass
 public class UserInput {
     private static final Scanner SCANNER = new Scanner(System.in);
+
+    private UserInput() {}
 
     public static int ask() {
         return SCANNER.nextInt();

@@ -1,7 +1,7 @@
 package org.example.interfaces;
 
 public interface Player {
-    Element element();
-    void move();
+    String move(int x, int y);
     boolean winGame();
+    int incrementScore();
 }

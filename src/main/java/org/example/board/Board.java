@@ -1,12 +1,10 @@
 package org.example.board;
 
-import lombok.Data;
 import org.example.interfaces.Element;
 
-@Data
 public class Board {
     private static final String EMPTY_CELL = " * ";
-    private int size;
+    private final int size;
     private String[][] board;
 
     public Board(int size) {
@@ -69,5 +67,17 @@ public class Board {
             diag2 = diag2 && this.board[i][size - (i + 1)].contains(element.value());
         }
         return diag1 || diag2;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public String[][] getBoard() {
+        return board;
+    }
+
+    public void clean() {
+        this.iniBoard();
     }
 }
