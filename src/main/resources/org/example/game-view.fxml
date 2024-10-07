@@ -5,81 +5,107 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.GameController">
-    <Label layoutX="33.0" layoutY="14.0" text="Player Score:" />
-   <Label layoutX="363.0" layoutY="14.0" text="Bot Score:" />
-   <Label fx:id="playerScore" layoutX="120.0" layoutY="13.0" text="0">
-      <font>
-         <Font name="System Bold" size="14.0" />
-      </font>
-   </Label>
-   <Label fx:id="botScore" layoutX="440.0" layoutY="13.0" text="0">
-      <font>
-         <Font name="System Bold" size="14.0" />
-      </font>
-   </Label>
-   <Pane layoutX="14.0" layoutY="55.0" prefHeight="331.0" prefWidth="553.0">
-      <children>
-         <Line endX="446.0" layoutX="107.0" layoutY="122.0" startX="-107.0" />
-         <Line endX="506.0" layoutX="47.0" layoutY="224.0" startX="-47.0" />
-         <Line endX="-64.0" endY="309.0" layoutX="243.0" layoutY="22.0" startX="-64.0" startY="-22.0" />
-         <Line endX="-69.0" endY="297.0" layoutX="444.0" layoutY="34.0" startX="-69.0" startY="-34.0" />
-         <Label fx:id="field00" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="8.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Label fx:id="field01" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="8.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Label fx:id="field02" alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="8.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Label fx:id="field10" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="122.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Label fx:id="field20" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="227.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Label fx:id="field11" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="122.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Label fx:id="field12" alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="122.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Label fx:id="field21" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="227.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Label fx:id="field22" alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="227.0" prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
-            <font>
-               <Font size="74.0" />
-            </font>
-         </Label>
-         <Pane fx:id="gameOverPane" disable="true" layoutX="130.0" layoutY="66.0" prefHeight="200.0" prefWidth="287.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: gray;" visible="false">
-            <children>
-               <Label fx:id="paneLabel" layoutX="25.0" layoutY="28.0" prefHeight="45.0" prefWidth="238.0" text="Label">
-                  <font>
-                     <Font size="21.0" />
-                  </font>
-               </Label>
-               <Button fx:id="exitBtn" layoutX="56.0" layoutY="114.0" mnemonicParsing="false" text="Exit" />
-               <Button fx:id="playAgainBtn" layoutX="128.0" layoutY="114.0" mnemonicParsing="false" text="Play Again" />
-            </children>
-         </Pane>
-      </children>
-   </Pane>
+<AnchorPane prefHeight="400.0" prefWidth="588.0"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controller.GameController"
+>
+    <Label layoutX="33.0" layoutY="14.0" text="Player Score:"/>
+    <Label layoutX="363.0" layoutY="14.0" text="Bot Score:"/>
+    <Label fx:id="playerScore" layoutX="118.0" layoutY="11.0" text="0">
+        <font>
+            <Font name="System Bold" size="17.0"/>
+        </font>
+    </Label>
+    <Label fx:id="botScore" layoutX="432.0" layoutY="11.0" prefHeight="24.0" prefWidth="10.0" text="0">
+        <font>
+            <Font name="System Bold" size="17.0"/>
+        </font>
+    </Label>
+    <Pane layoutX="14.0" layoutY="55.0" prefHeight="331.0" prefWidth="553.0">
+        <children>
+            <Line endX="446.0" layoutX="107.0" layoutY="122.0" startX="-107.0"/>
+            <Line endX="506.0" layoutX="47.0" layoutY="224.0" startX="-47.0"/>
+            <Line endX="-64.0" endY="309.0" layoutX="243.0" layoutY="22.0" startX="-64.0" startY="-22.0"/>
+            <Line endX="-69.0" endY="297.0" layoutX="444.0" layoutY="34.0" startX="-69.0" startY="-34.0"/>
+            <Label fx:id="field00" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="8.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Label fx:id="field01" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="8.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Label fx:id="field02" alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="8.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Label fx:id="field10" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="122.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Label fx:id="field20" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="227.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Label fx:id="field11" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="122.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Label fx:id="field12" alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="122.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Label fx:id="field21" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="227.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Label fx:id="field22" alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="227.0"
+                   prefHeight="99.0" prefWidth="163.0" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"
+                   wrapText="true">
+                <font>
+                    <Font size="74.0"/>
+                </font>
+            </Label>
+            <Pane fx:id="gameOverPane" disable="true" layoutX="130.0" layoutY="66.0" prefHeight="200.0"
+                  prefWidth="287.0"
+                  style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: gray;"
+                  visible="false">
+                <children>
+                    <Label fx:id="paneLabel" layoutX="25.0" layoutY="28.0" prefHeight="45.0" prefWidth="238.0"
+                           text="Label">
+                        <font>
+                            <Font size="21.0"/>
+                        </font>
+                    </Label>
+                    <Button fx:id="exitBtn" layoutX="56.0" layoutY="114.0" mnemonicParsing="false" text="Exit"/>
+                    <Button fx:id="playAgainBtn" layoutX="128.0" layoutY="114.0" mnemonicParsing="false"
+                            text="Play Again"/>
+                </children>
+            </Pane>
+        </children>
+    </Pane>
 </AnchorPane>

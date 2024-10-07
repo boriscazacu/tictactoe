@@ -1,13 +1,8 @@
 package org.example.player;
 
 import org.example.board.Board;
-import org.example.enums.Errors;
-import org.example.helpers.Printer;
-import org.example.helpers.UserInput;
 import org.example.interfaces.Element;
 import org.example.interfaces.Player;
-
-import java.util.function.Function;
 
 public class User implements Player {
 

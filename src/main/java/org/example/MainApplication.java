@@ -13,18 +13,6 @@ public class MainApplication extends Application implements Navigation {
     public static final String MAIN_SCENE = "main-view.fxml";
     public static final String GAME_SCENE = "game-view.fxml";
     private Stage stage;
-    private static Navigation navigation;
-
-    public static Navigation getNavigation() {
-        if(navigation == null) {
-            navigation = new MainApplication();
-        }
-        return navigation;
-    }
-
-    public MainApplication() {
-        navigation = this;
-    }
 
     @Override
     public void start(Stage stage) throws IOException {

@@ -2,26 +2,49 @@ package org.example.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import org.example.MainApplication;
-import org.example.interfaces.Game;
-import org.example.interfaces.Navigation;
+import org.example.helpers.AppCache;
+
+import java.io.IOException;
 
 public class MainController {
+    public static final String GAME_SCENE = "game-view.fxml";
 
     @FXML
-    private Label welcomeText;
+    private Button gameBtn;
 
     @FXML
-    protected void onStartButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    protected void onXButtonClick() {
+        AppCache.getInstance().setXState();
+        goToGameScreen();
+    }
+
+    @FXML
+    protected void onOButtonClick() {
+        AppCache.getInstance().setOState();
+        goToGameScreen();
     }
 
     @FXML
     protected void onGameStartButtonClick() {
-        Navigation navigation = MainApplication.getNavigation();
-        System.out.println(navigation);
-        navigation.onLocationForward();
+        AppCache.getInstance().randomState();
+        goToGameScreen();
+    }
+
+    private void goToGameScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(GAME_SCENE));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) gameBtn.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error on navigation " + e.getMessage());
+        }
     }
 }

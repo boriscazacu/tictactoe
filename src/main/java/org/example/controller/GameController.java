@@ -8,6 +8,7 @@ import org.example.board.Board;
 import org.example.board.OElement;
 import org.example.board.XElement;
 import org.example.enums.Errors;
+import org.example.helpers.AppCache;
 import org.example.helpers.Printer;
 import org.example.interfaces.Player;
 import org.example.player.Bot;
@@ -136,11 +137,11 @@ public class GameController {
     }
 
     private void selectElement() {
-        String ui = "X";
-        if ("x".equalsIgnoreCase(ui)) {
+        String state = AppCache.getInstance().getState();
+        if ("x".equalsIgnoreCase(state)) {
             user = new User(board, new XElement());
             bot = new Bot(board, new OElement());
-        } else if ("o".equalsIgnoreCase(ui)) {
+        } else if ("o".equalsIgnoreCase(state)) {
             user = new User(board, new OElement());
             bot = new Bot(board, new XElement());
         } else {
