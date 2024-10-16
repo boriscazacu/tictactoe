@@ -4,17 +4,10 @@ import org.example.board.Board;
 import org.example.interfaces.Element;
 import org.example.interfaces.Player;
 
-public class Bot implements Player {
-
-    private final Element element;
-    private int score = 0;
+public class Bot extends Player {
 
     public Bot(Element element) {
-        this.element = element;
-    }
-
-    public Element getElement() {
-        return element;
+        super(element);
     }
 
     @Override
@@ -30,21 +23,5 @@ public class Bot implements Player {
         } while (board.move(x, y, element));
 
         return String.format("%d%d", x, y);
-    }
-
-    @Override
-    public boolean winGame(Board board) {
-        return board.playerWinGame(element);
-    }
-
-    @Override
-    public Player increment() {
-        score++;
-        return this;
-    }
-
-    @Override
-    public int getScore() {
-        return score;
     }
 }
