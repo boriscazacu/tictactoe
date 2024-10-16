@@ -5,37 +5,48 @@ import org.example.interfaces.Element;
 import org.example.interfaces.Player;
 
 public class User implements Player {
-
-    private final Board board;
     private final Element element;
-    private Runnable runnable;
     private int score = 0;
+    private String userName = "User";
 
-    public void addRunnable(Runnable runnable) {
-        this.runnable = runnable;
-    }
-
-    public User(Board board, Element element) {
-        this.board = board;
+    public User(Element element) {
         this.element = element;
     }
 
+    public User setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+
     @Override
-    public String move(int x, int y) {
+    public String name() {
+        return userName;
+    }
+
+    @Override
+    public String move(Board board, int x, int y) {
         board.move(x, y, element);
-        if (this.runnable != null) {
-            this.runnable.run();
-        }
         return element.value();
     }
 
     @Override
-    public boolean winGame() {
+    public boolean winGame(Board board) {
         return board.playerWinGame(element);
     }
 
     @Override
-    public int incrementScore() {
-        return ++score;
+    public Player increment() {
+        score++;
+        return this;
+    }
+
+    @Override
+    public Element getElement() {
+        return this.element;
+    }
+
+    @Override
+    public int getScore() {
+        return score;
     }
 }

@@ -3,7 +3,7 @@ package org.example.board;
 import org.example.interfaces.Element;
 
 public class Board {
-    private static final String EMPTY_CELL = " * ";
+    private static final String EMPTY_CELL = "*";
     private final int size;
     private String[][] board;
 
@@ -30,7 +30,7 @@ public class Board {
             return true;
         }
         if (this.board[row][col].equals(EMPTY_CELL)) {
-            this.board[row][col] = " " + element.value() + " ";
+            this.board[row][col] = element.value();
             return false;
         }
         return true;

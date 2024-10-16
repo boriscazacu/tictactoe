@@ -1,28 +1,28 @@
 package org.example.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import org.example.board.Board;
-import org.example.board.OElement;
-import org.example.board.XElement;
-import org.example.enums.Errors;
 import org.example.helpers.AppCache;
-import org.example.helpers.Printer;
 import org.example.interfaces.Player;
-import org.example.player.Bot;
 import org.example.player.User;
 
 import java.lang.reflect.Field;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class GameController {
 
     @FXML
-    private Label playerScore;
+    private Label firstPlayerScore;
 
     @FXML
-    private Label botScore;
+    private Label secondPlayerScore;
 
     @FXML
     private Label field00;
@@ -58,46 +58,81 @@ public class GameController {
     private Label paneLabel;
 
     @FXML
+    private Label userName;
+
+    @FXML
+    private TextField currentMove;
+
+    @FXML
+    private Label botName;
+
+    @FXML
     private Button exitBtn;
 
     @FXML
     private Button playAgainBtn;
 
     private final Board board = new Board(3);
-    private User user;
-    private Bot bot;
 
     @FXML
     public void initialize() {
-        System.out.println("init");
-        selectElement();
-        field00.setOnMouseClicked(c -> field00.setText(user.move(0,0)));
-        field01.setOnMouseClicked(c -> field01.setText(user.move(0,1)));
-        field02.setOnMouseClicked(c -> field02.setText(user.move(0,2)));
-        field10.setOnMouseClicked(c -> field10.setText(user.move(1,0)));
-        field11.setOnMouseClicked(c -> field11.setText(user.move(1,1)));
-        field12.setOnMouseClicked(c -> field12.setText(user.move(1,2)));
-        field20.setOnMouseClicked(c -> field20.setText(user.move(2,0)));
-        field21.setOnMouseClicked(c -> field21.setText(user.move(2,1)));
-        field22.setOnMouseClicked(c -> field22.setText(user.move(2,2)));
+        userName.setText(String.format("%s Score:", AppCache.getInstance().getFirstPlayer().name()));
+        botName.setText(String.format("%s Score:", AppCache.getInstance().getSecondPlayer().name()));
+        setCurrentMove();
+
+        // Set listeners
+        field00.setOnMouseClicked(c -> move(field00,0,0));
+        field01.setOnMouseClicked(c -> move(field01,0,1));
+        field02.setOnMouseClicked(c -> move(field02,0,2));
+        field10.setOnMouseClicked(c -> move(field10,1,0));
+        field11.setOnMouseClicked(c -> move(field11,1,1));
+        field12.setOnMouseClicked(c -> move(field12,1,2));
+        field20.setOnMouseClicked(c -> move(field20,2,0));
+        field21.setOnMouseClicked(c -> move(field21,2,1));
+        field22.setOnMouseClicked(c -> move(field22,2,2));
         exitBtn.setOnMouseClicked(m -> System.exit(999));
         playAgainBtn.setOnMouseClicked(m -> playNewGame());
-        this.user.addRunnable(() -> {
-            this.checkGameStatus(user);
+    }
 
-            String move = bot.move(0, 0);
-            Class<?> personClass = this.getClass();
-            try {
-                Field nameField = personClass.getDeclaredField("field" + move);
-                nameField.setAccessible(true);
-                Label label = (Label) nameField.get(this);
-                label.setText(bot.getElement().value());
-                nameField.setAccessible(false);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
+    private void move(Label label, int x, int y) {
+        Player player = AppCache.getInstance().getPlayerToMove();
+        if (player instanceof User) {
+            label.setText(
+                player.move(board, x, y)
+            );
+        }
+        setCurrentMove();
+        this.checkGameStatus(player);
+
+        if (AppCache.getInstance().isPlayingWithBot()) {
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+            // Schedule the task to run after 5 seconds
+            scheduler.schedule(this::botMove, 1, TimeUnit.SECONDS);
+
+        }
+    }
+
+    private void botMove() {
+        Player bot = AppCache.getInstance().getPlayerToMove();
+
+        String move = bot.move(board, 0, 0);
+        Class<?> personClass = this.getClass();
+        try {
+            Field nameField = personClass.getDeclaredField("field" + move);
+            nameField.setAccessible(true);
+            Label botLabel = (Label) nameField.get(this);
+            Platform.runLater(() -> botLabel.setText(bot.getElement().value()));
+            nameField.setAccessible(false);
+            setCurrentMove();
             this.checkGameStatus(bot);
-        });
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setCurrentMove() {
+        currentMove.setText(String.format("%s Move", AppCache.getInstance().getNextMove().name()));
     }
 
     private void playNewGame() {
@@ -117,13 +152,15 @@ public class GameController {
 
     private void checkGameStatus(Player player) {
         String text;
-        if (player.winGame()) {
+        if (player.winGame(board)) {
             if (player instanceof User) {
-                text = "User win, Congrats";
-                playerScore.setText(String.valueOf(user.incrementScore()));
+                text = String.format("%s win, Congrats !!:)", player.name());
+                player.increment();
+                firstPlayerScore.setText(String.valueOf(AppCache.getInstance().getFirstPlayer().getScore()));
+                secondPlayerScore.setText(String.valueOf(AppCache.getInstance().getSecondPlayer().getScore()));
             } else {
-                text = "Bot win, try again";
-                botScore.setText(String.valueOf(bot.incrementScore()));
+                text = "Bot win, try again :(";
+                secondPlayerScore.setText(String.valueOf(player.increment().getScore()));
             }
             paneLabel.setText(text);
             gameOverPane.setVisible(true);
@@ -133,20 +170,6 @@ public class GameController {
             paneLabel.setText("Board is full");
             gameOverPane.setVisible(true);
             gameOverPane.setDisable(false);
-        }
-    }
-
-    private void selectElement() {
-        String state = AppCache.getInstance().getState();
-        if ("x".equalsIgnoreCase(state)) {
-            user = new User(board, new XElement());
-            bot = new Bot(board, new OElement());
-        } else if ("o".equalsIgnoreCase(state)) {
-            user = new User(board, new OElement());
-            bot = new Bot(board, new XElement());
-        } else {
-            Printer.print(Errors.USER_ELEMENT_INCORRECT);
-            throw new RuntimeException("No user");
         }
     }
 }

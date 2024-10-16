@@ -9,4 +9,6 @@ module TicTacToe {
     exports org.example.controller;
     exports org.example.interfaces;
     opens org.example.controller to javafx.fxml;
+    exports org.example.board;
+    opens org.example.board to javafx.fxml;
 }

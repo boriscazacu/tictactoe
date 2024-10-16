@@ -1,18 +1,14 @@
 package org.example.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import org.example.MainApplication;
 import org.example.helpers.AppCache;
+import org.example.helpers.SceneHelper;
 
-import java.io.IOException;
+import static org.example.helpers.SceneHelper.GAME_SCENE;
+import static org.example.helpers.SceneHelper.USER_INPUT_SCENE;
 
 public class MainController {
-    public static final String GAME_SCENE = "game-view.fxml";
 
     @FXML
     private Button gameBtn;
@@ -30,21 +26,17 @@ public class MainController {
     }
 
     @FXML
-    protected void onGameStartButtonClick() {
+    protected void startGameWithRandomChoice() {
         AppCache.getInstance().randomState();
         goToGameScreen();
     }
 
-    private void goToGameScreen() {
-        try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(GAME_SCENE));
-            Parent root = loader.load();
+    @FXML
+    protected void onGameStartButtonClick() {
+        SceneHelper.goToScreen(gameBtn, USER_INPUT_SCENE);
+    }
 
-            Stage stage = (Stage) gameBtn.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            System.out.println("Error on navigation " + e.getMessage());
-        }
+    private void goToGameScreen() {
+        SceneHelper.goToScreen(gameBtn, GAME_SCENE);
     }
 }
