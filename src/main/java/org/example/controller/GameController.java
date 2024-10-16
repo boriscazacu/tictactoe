@@ -151,8 +151,14 @@ public class GameController {
     }
 
     private void checkGameStatus(Player player) {
-        String text;
+        if (board.isFull()) {
+            paneLabel.setText("Board is full");
+            gameOverPane.setVisible(true);
+            gameOverPane.setDisable(false);
+            return;
+        }
         if (player.winGame(board)) {
+            String text;
             if (player instanceof User) {
                 text = String.format("%s win, Congrats !!:)", player.name());
                 player.increment();
@@ -163,11 +169,6 @@ public class GameController {
                 secondPlayerScore.setText(String.valueOf(player.increment().getScore()));
             }
             paneLabel.setText(text);
-            gameOverPane.setVisible(true);
-            gameOverPane.setDisable(false);
-        }
-        if (board.isFull()) {
-            paneLabel.setText("Board is full");
             gameOverPane.setVisible(true);
             gameOverPane.setDisable(false);
         }

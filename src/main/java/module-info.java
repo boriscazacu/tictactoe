@@ -3,6 +3,7 @@ module TicTacToe {
     requires javafx.fxml;
 
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     opens org.example to javafx.fxml;
     exports org.example;
